@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+
 using namespace std;
 /*
 implement an algorigthm to determine if a string
