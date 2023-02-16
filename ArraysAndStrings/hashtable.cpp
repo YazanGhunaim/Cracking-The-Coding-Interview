@@ -1,6 +1,4 @@
-// collisions are when multiple keys have the exact same hash
-// seperate chainging -> using linked lists to deal with collisions
-
+ 
 #include <iostream>
 #include <list>
 #include <cstring>
@@ -40,7 +38,7 @@ bool HashTable::isEmpty() const
 
 int HashTable::hashFunction(int key)
 {
-    return key & hashGroups; // Key: 905, in return this function will spit out 5
+    return key % hashGroups; // Key: 905, in return this function will spit out 5
 }
 
 void HashTable::insertItem(int key, string value)
@@ -107,6 +105,20 @@ void HashTable::printTable()
     return;
 }
 
+string HashTable::searchItem(int key)
+{
+    int hashvalue = hashFunction(key);
+    auto bItr = table[hashvalue].begin();
+    for (; bItr != table[hashvalue].end(); ++bItr)
+    {
+        if (bItr->first == key)
+        {
+            return bItr->second;
+        }
+    }
+    return NULL;
+}
+
 int main()
 {
     HashTable HT;
@@ -131,7 +143,9 @@ int main()
     HT.printTable();
 
     HT.removeItem(100);
-    HT.removeItem(112);
+    HT.removeItem(906);
+
+    cout << HT.searchItem(343) << endl;
 
     if (HT.isEmpty())
     {
